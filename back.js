@@ -26,17 +26,28 @@ class ProductManager{
            return this.product
                
            }
-    addProduct({title,description,price,thumbnail,stock}){
-       let id =this.product.length===0? 1 :this.product[this.product.length-1].id+1 
-       console.log(id)
-       let product={title,description,price,thumbnail,stock,id}
+ 
+       addProduct({title,description,price,thumbnail,stock}) {
 
-       product=(title ===''|| description ==='' ||price === '' ||thumbnail === ''||stock ==='')        
-       ?  console.log("Debes completar todos los campos"): this.product.push(product)
-       return product
+        if (!title || !description || !price || !thumbnail || !stock) {
+       
+         console.log("Debes completar todos los campos");
+       
+         return null;
+       
+        }
+       
+        let id = this.product.length === 0 ? 1 : this.product[this.product.length-1].id + 1;
+       
+        let product = {title, description, price, thumbnail, stock, id};
+       
+        this.product.push(product);
+       
+        return product;
+       
+       }
 
-    }
-  
+ 
     getProductById(product_id){
         let productFound = this.product.find(each=> each.id === product_id)
         productFound ?console.log(productFound) : console.log('Not found')
