@@ -23,7 +23,15 @@ class ProductManager {
         }
     }
     async addProduct({title,description,price,thumbnail,stock})  {
-        try {
+        try {    
+           
+            if (!title || !description || !price || !thumbnail) {
+       
+            console.log("Debes completar todos los campos");
+          
+            return null;
+          
+           }else{
             //defino el objeto que necesito agregar al array
             let data = {title,description,price,thumbnail,stock}
             //si la memoria tiene productos
@@ -36,21 +44,23 @@ class ProductManager {
                 //en caso que no tenga: asigno el primer id
                 data.id = 1
             }
+            if(stock === undefined){data.stock = 0}
             //agrego el objeto (producto) a la memoria del programa
             this.products.push(data)
             //convierto a texto plano el array
             let data_json = JSON.stringify(this.products,null,2)
             //sobre-escribo el archivo
             await fs.promises.writeFile(this.path,data_json)
-            console.log('id´s created user: '+data.id)
-            return 'id´s user: '+data.id
+            console.log('id´s created product: '+data.id)
+            return 'id´s product: '+data.id
+        }
         } catch(error) {
             console.log(error)
-            return 'error: creating user'
+            return 'addProduct: error'
         }
     }
-    getProduct() {
-        //console.log(this.users)
+    getProducts() {
+        console.log(this.products)
         return this.products
     }
     getProductById(id) {
@@ -85,7 +95,7 @@ class ProductManager {
             //sobre-escribo el archivo
             await fs.promises.writeFile(this.products,data_json)
             console.log('updateProduct: done'+id)
-            return 'updated user: '+id
+            return 'updateProduct: done'+id
         } catch(error) {
             console.log(error)
             return 'updateProduct: error'
@@ -96,12 +106,15 @@ class ProductManager {
             //saco el producto
             this.products = this.products.filter(each=>each.id!==id)
             //console.log( this.products)
+           
+           
             //convierto a texto plano el array
             let data_json = JSON.stringify(this.products,null,2)
             //sobre-escribo el archivo
             await fs.promises.writeFile(this.path,data_json)
             console.log('deleteProduct: done'+id)
             return 'deleteProduct: done'+id
+             
         } catch(error) {
             console.log(error)
             return 'deleteProduct: error'
@@ -110,11 +123,18 @@ class ProductManager {
 }
 async function up() {
     let product = new ProductManager('./data/products.json')
-    await product.addProduct({title:'pendrive1',description:'50G',price:'5000',thumbnail:"imagen",stock:50})
-    await product.addProduct({title:'pendrive2',description:'100G',price:'10000',thumbnail:"imagen",stock:100})
-    await product.addProduct({title:'pendrive3',description:'150G',price:'30000',thumbnail:"imagen",stock:150})
-   
-   
-
+    await product.addProduct({title:'pendrive1',description:'64GB marca Sandisk',price:'$5.000',thumbnail:"imagen"})
+    await product.addProduct({title:'pendrive2',description:'120GB marca Sandisk',price:'$10.000',thumbnail:"imagen",stock:100})
+    await product.addProduct({title:'pendrive3',description:'500GB marca Sandisk',price:'$20.000',thumbnail:"imagen",stock:150})
+    await product.addProduct({title:'pendrive4',description:'64GB marca Kingtong',price:'$8.000',thumbnail:"imagen",stock:50})
+    await product.addProduct({title:'pendrive5',description:'120GB marca Kingtong',price:'$12.000',thumbnail:"imagen",stock:50})
+    await product.addProduct({title:'pendrive6',description:'500GB marca Kingtong',price:'24.000',thumbnail:"imagen",stock:70})
+    await product.addProduct({title:'Tarjeta de Memoria1',description:'64GB marca Kingtong',price:'$8.000',thumbnail:"imagen",stock:60})
+    await product.addProduct({title:'Tarjeta de Memoria2',description:'128GB marca Kingtong',price:'$12.000',thumbnail:"imagen",stock:90})
+    await product.addProduct({title:'Disco Duro Extraible1',description:'1TB',price:'$50.000',thumbnail:"imagen",stock:10})
+    await product.addProduct({title:'Disco Duro Extraible2',description:'2TB',price:'$80.000',thumbnail:"imagen",stock:8})
+    await product. getProductById(9)
+    await product.deleteProduct(10)
+    await product.getProducts()
 }
 up()
