@@ -1,0 +1,26 @@
+[
+  {
+    "title": "pendrive1",
+    "description": "50G",
+    "price": "5000",
+    "thumbnail": "imagen",
+    "stock": 50,
+    "id": 1
+  },
+  {
+    "title": "pendrive2",
+    "description": "100G",
+    "price": "10000",
+    "thumbnail": "imagen",
+    "stock": 100,
+    "id": 2
+  },
+  {
+    "title": "pendrive3",
+    "description": "150G",
+    "price": "30000",
+    "thumbnail": "imagen",
+    "stock": 150,
+    "id": 3
+  }
+]
