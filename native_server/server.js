@@ -18,7 +18,7 @@ let index_function = (req,res)=> {
     let quantity_prod = manager.read_products().length
     let quantity_cart = carts.read_Carts().length
     console.log(quantity_prod,quantity_cart)
-    return res.send(`<strong>Welcome to the index page.</strong><br>There are ${quantity_prod} productos and ${quantity_cart} carts.`)
+    return res.send(`Index page<br>There are ${quantity_prod} productos and ${quantity_cart} carts products.`)
 }
 
 server.get(index_route,index_function)
@@ -39,14 +39,14 @@ let one_route = '/api/products/:pid'
 let one_function = (request,response)=>{
     let parametros = request.params
     let pid = Number(parametros.pid) 
-    // console.log(id)
-    // console.log(typeof id)
-    let one = manager.read_product(pid)
-    console.log(one)
-    if (one) {
+    // console.log(pid)
+    // console.log(typeof pid)
+    let oneProduct = manager.read_product(pid)
+    console.log(oneProduct)
+    if (oneProduct) {
         return response.send({
             success: true,
-            product: one
+            product: oneProduct
         })
     } else {
         return response.send({
@@ -91,12 +91,12 @@ server.post(
                 manager.addProduct({ title, description, price, thumbnail, stock })
                 return res.json({
                     status: 201,
-                    message: 'created'
+                    message: 'created a product'
                 })
             } else {
                 return res.json({
                     status: 400,
-                    message:  'check data'
+                    message:  'check data of the product'
                 })
             }
         } catch (error) {
@@ -135,7 +135,7 @@ server.put(
 
 // Carts
 
-let carts_route = '/api/carts/:cid'
+let cart_route = '/api/carts/:cid'
 let carts_function = (request,response)=>{
     let parametros = request.params
     let cid = Number(parametros.cid) 
@@ -154,10 +154,10 @@ let carts_function = (request,response)=>{
     }
     
 }
-server.get(carts_route,carts_function)
+server.get(cart_route,carts_function)
 
-let carts_query_route = '/api/carts'
-let carts_query_function = (req,res) => {
+let carts_route = '/api/carts'
+let query_function2 = (req,res) => {
     try {
         let limit = req.query.limit ?? 10
         let carts = carts.read_Carts().slice(0,limit)
@@ -174,4 +174,4 @@ let carts_query_function = (req,res) => {
     }
 }
 
-server.get(carts_query_route,carts_query_function)
+server.get(carts_route,query_function2)
