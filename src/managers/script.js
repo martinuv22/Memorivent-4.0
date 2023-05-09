@@ -20,6 +20,7 @@ class ProductManager {
             this.products = JSON.parse(fs.readFileSync(path,'UTF-8'))
             console.log('data recovered')
             return 'data recovered'
+
         }
     }
     async addProduct({title,description,price,thumbnail,stock})  {
@@ -51,14 +52,22 @@ class ProductManager {
             let data_json = JSON.stringify(this.products,null,2)
             //sobre-escribo el archivo
             await fs.promises.writeFile(this.path,data_json)
-            console.log('id´s created product: '+data.id)
-            return 'id´s product: '+data.id
+            return data
         }
         } catch(error) {
             console.log(error)
             return 'addProduct: error'
         }
     }
+    read_products() {
+        return this.products;
+    }
+
+    read_product(id) {
+        let productFound = this.products.find((each) => each.id === id);
+        //console.log(productFound)
+        return productFound;
+    }    
     getProducts() {
         try {
         if (this.products.length === 0) {
@@ -71,15 +80,7 @@ class ProductManager {
         return 'getProduct: Error';
         }
     }
-    read_products() {
-        return this.products;
-    }
-
-    read_product(id) {
-        let productFound = this.products.find((each) => each.id === id);
-        //console.log(productFound)
-        return productFound;
-    }    
+  
  getProductById(pid) {
         let buscar = this.read_product(pid);
         try {
@@ -144,23 +145,7 @@ class ProductManager {
     }
 }
 
-let manager = new ProductManager('./src/data/products.json')
-async function up() {
-    await manager.addProduct({title:'pendrive1',description:'64GB marca Sandisk',price:'$5.000',thumbnail:"imagen"})
-    await manager.addProduct({title:'pendrive2',description:'120GB marca Sandisk',price:'$10.000',thumbnail:"imagen",stock:100})
-    await manager.addProduct({title:'pendrive3',description:'500GB marca Sandisk',price:'$20.000',thumbnail:"imagen",stock:150})
-    await manager.addProduct({title:'pendrive4',description:'64GB marca Kingtong',price:'$8.000',thumbnail:"imagen",stock:50})
-    await manager.addProduct({title:'pendrive5',description:'120GB marca Kingtong',price:'$12.000',thumbnail:"imagen",stock:50})
-    await manager.addProduct({title:'pendrive6',description:'500GB marca Kingtong',price:'24.000',thumbnail:"imagen",stock:70})
-    await manager.addProduct({title:'Tarjeta de Memoria1',description:'64GB marca Kingtong',price:'$8.000',thumbnail:"imagen",stock:60})
-    await manager.addProduct({title:'Tarjeta de Memoria2',description:'128GB marca Kingtong',price:'$12.000',thumbnail:"imagen",stock:90})
-    await manager.addProduct({title:'Disco Duro Extraible1',description:'1TB',price:'$50.000',thumbnail:"imagen",stock:10})
-    await manager.addProduct({title:'Disco Duro Extraible2',description:'2TB',price:'$80.000',thumbnail:"imagen",stock:8})
-    await manager. getProductById(9)
-    await manager.deleteProduct(10)
-    await manager.getProducts()
-}
+let prod_manager  = new ProductManager('./src/data/products.json')
 
-//up()
 
-export default manager
+export default prod_manager

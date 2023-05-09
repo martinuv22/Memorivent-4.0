@@ -1,13 +1,11 @@
 import { Router } from "express";
-import api_router from './api/index.js';
-//import view_router from './views/index.js'
+import api_router from './api/index.js'
 
-const router = Router();
-//toda las rutas que importen json van a tener el endpoint "/api"
-router.use('/api',api_router)
-//toda las rutas que importen vistas van a tener el endpoint "/"
-//router.use('/',view_router)
-export default router;
+const index_router = Router()
 
-//enrutador principal de la aplicacion
-//llamo al enrutador de la api y de las vistas
+index_router.use('/api',api_router) //enrutador de rutas que respondan con json (datos)
+
+
+export default index_router;
+
+//enrutador principal de la API (para enviar datos)

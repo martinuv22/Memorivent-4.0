@@ -1,6 +1,4 @@
 import fs from 'fs'
-import manager from './script.js'
-
 class CartManager {
     constructor(path) {
         this.carts = [];

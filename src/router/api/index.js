@@ -1,11 +1,13 @@
 import { Router } from "express";
-import products_router from './product.js'
-import cart_router from './cart.js'
-const api_router = Router()
+import products_router from "./products.js"
+import carts_router from "./carts.js"
 
-api_router.use('/product',products_router)
-api_router.use('/cart',cart_router)
-export default api_router;
+const router = Router()
 
-//enrutador principal de la API (para enviar datos)
+
+router.use('/products',products_router)
+router.use('/carts',carts_router)
+
+
+export default router
 //aca llamo al enrutador de los recursos (product,cart, user)

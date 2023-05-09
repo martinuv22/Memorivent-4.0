@@ -1,9 +1,9 @@
 import express from 'express' // importo express
-import manager from './managers/script.js'
-import carts from './managers/carts.js'  
 import router from './router/index.js'
-import errorHandler from './middlewares/errorHandres.js'
-import not_found_handler from './middlewares/notfoundHandres.js'
+import errorHandler from './middlewares/error_handler.js'
+import not_found_handler from './middlewares/not_found_handler.js'
+
+
 const server = express()
 
 //defino servidor de express
@@ -18,6 +18,7 @@ server.use(express.urlencoded({extended:true}))
 server.use('/',router)
 server.use(errorHandler)
 server.use(not_found_handler)
+
 /*
 const index_route = '/'
 let index_function = (req,res)=> {
