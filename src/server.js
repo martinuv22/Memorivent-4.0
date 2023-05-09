@@ -1,6 +1,9 @@
 import express from 'express' // importo express
-import manager from './script.js'
-import carts from './carts.js'  
+import manager from './managers/script.js'
+import carts from './managers/carts.js'  
+import router from './router/index.js'
+import errorHandler from './middlewares/errorHandres.js'
+import not_found_handler from './middlewares/notfoundHandres.js'
 const server = express()
 
 //defino servidor de express
@@ -9,10 +12,13 @@ const PORT = 8080                   //defino el puerto donde se va a levantar el
 const ready = () => console.log('server ready on port: '+PORT)   //defino la callback que se va a ejecutar cuando se levante el servidor
 
 server.listen(PORT,ready)
+server.use('/public',express.static('public'))
 server.use(express.json())
 server.use(express.urlencoded({extended:true}))
-
-
+server.use('/',router)
+server.use(errorHandler)
+server.use(not_found_handler)
+/*
 const index_route = '/'
 let index_function = (req,res)=> {
     let quantity_prod = manager.read_products().length
@@ -170,3 +176,4 @@ let query_function2 = (req,res) => {
 }
 
 server.get(carts_route,query_function2)
+*/
