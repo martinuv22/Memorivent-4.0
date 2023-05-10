@@ -11,7 +11,7 @@ const server = express()
 const PORT = 8080                   //defino el puerto donde se va a levantar el servidor
 const ready = () => console.log('server ready on port: '+PORT)   //defino la callback que se va a ejecutar cuando se levante el servidor
 
-server.listen(PORT,ready)
+
 server.use('/public',express.static('public'))
 server.use(express.json())
 server.use(express.urlencoded({extended:true}))
@@ -19,6 +19,8 @@ server.use('/',router)
 server.use(errorHandler)
 server.use(not_found_handler)
 
+
+server.listen(PORT,ready)
 /*
 const index_route = '/'
 let index_function = (req,res)=> {
