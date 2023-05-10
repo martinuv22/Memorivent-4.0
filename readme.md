@@ -1,5 +1,4 @@
-
-Tercer desafio- Curso Backend:
+Pre-entrega proyecto final- Curso Backend:
             Tercer desafio sobre un ecommerce llamado Memorivent del curso de Backender- Comisión 39770
             
 

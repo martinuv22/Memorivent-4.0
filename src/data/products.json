@@ -4,11 +4,11 @@
     "description": "64GB marca Sandisk",
     "price": "$5.000",
     "thumbnail": "imagen",
-    "stock": 0,
+    "stock": 50,
     "id": 1
   },
   {
-    "title": "pendrive2",
+    "title": "pendrive8",
     "description": "120GB marca Sandisk",
     "price": "$10.000",
     "thumbnail": "imagen",
